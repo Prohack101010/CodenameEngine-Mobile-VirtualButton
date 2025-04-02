@@ -25,6 +25,16 @@ package mobile.objects;
 #if TOUCH_CONTROLS
 import flixel.util.FlxSignal.FlxTypedSignal;
 
+//test
+import flixel.FlxG;
+import flixel.graphics.frames.FlxTileFrames;
+import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxPoint;
+import flixel.util.FlxDestroyUtil;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.FlxGraphic;
+import openfl.display.BitmapData;
+
 /**
  * ...
  * @author: Karim Akra and Homura Akemi (HomuHomu833)
