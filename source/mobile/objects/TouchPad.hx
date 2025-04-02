@@ -145,7 +145,7 @@ class TouchPad extends MobileInputManager
 		var buttonLabelGraphicPath:String = "";
 	    
 	    	for (folder in ['${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile', Paths.getPath('mobile')])
-			for (file in [Graphic.toUpperCase()])
+			for (file in [Frames.toUpperCase()])
 			{
 				final path:String = '${folder}/images/virtualpad/${file}.png';
 				if (FileSystem.exists(path))
