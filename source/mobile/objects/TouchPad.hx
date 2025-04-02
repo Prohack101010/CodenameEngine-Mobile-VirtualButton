@@ -34,6 +34,7 @@ import flixel.util.FlxDestroyUtil;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
+import openfl.utils.Assets;
 
 /**
  * ...
@@ -151,10 +152,12 @@ class TouchPad extends MobileInputManager
 				if (FileSystem.exists(path))
 					buttonLabelGraphicPath = path;
 			}
-	    
-
+			
+		final assetsPath:String = 'assets/mobile/images/virtualpad/$Frames.png';
 		if(FileSystem.exists(buttonLabelGraphicPath))
 			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(buttonLabelGraphicPath));
+		else #end if(Assets.exists(assetsPath))
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData(assetsPath));
 		else
 			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('assets/mobile/images/virtualpad/default.png'));
 			
