@@ -130,44 +130,40 @@ class TouchPad extends MobileInputManager
 		}
 	}
 
-	private function createButton(X:Float, Y:Float, Graphic:String, ?Color:FlxColor = 0xFFFFFF, ?IDs:Array<MobileInputID>):TouchButton
-	{
-		var button = new TouchButton(X, Y, IDs);
-		var buttonGraphicPath:String = "";
+	public function createButton(x:Float, y:Float, Frames:String, ?ColorS:Int = 0xFFFFFF, ?IDs:Array<MobileInputID>):TouchButton {
+		var frames:FlxGraphic;
 		var buttonLabelGraphicPath:String = "";
-		for (folder in ['${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile', Paths.getPath('mobile')])
-			for (file in ["bg", Graphic.toUpperCase()])
+	    
+	    	for (folder in ['${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile', Paths.getPath('mobile')])
+			for (file in [Graphic.toUpperCase()])
 			{
 				final path:String = '${folder}/images/touchpad/${file}.png';
 				if (FileSystem.exists(path))
-					if (file == "bg")
-						buttonGraphicPath = path;
-					else
-						buttonLabelGraphicPath = path;
+					buttonLabelGraphicPath = path;
 			}
-		button.label = new FlxSprite();
-		button.loadGraphic(buttonGraphicPath);
-		button.label.loadGraphic(buttonLabelGraphicPath);
+	    
 
-		button.scale.set(0.243, 0.243);
+		if(FileSystem.exists(buttonLabelGraphicPath))
+			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(buttonLabelGraphicPath));
+			
+		var button = new TouchButton(x, y, IDs);
+		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
+        
+		//button.scale.set(0.243, 0.243);
 		button.updateHitbox();
-		button.updateLabelPosition();
-
-		button.statusBrightness = [1, 0.8, 0.4];
-		button.statusIndicatorType = BRIGHTNESS;
-		button.indicateStatus();
-
-		button.bounds.makeGraphic(Std.int(button.width - 50), Std.int(button.height - 50), FlxColor.TRANSPARENT);
-		button.centerBounds();
-
-		button.immovable = true;
-		button.solid = button.moves = false;
-		button.label.antialiasing = button.antialiasing = Options.antialiasing;
-		button.tag = Graphic.toUpperCase();
-		button.color = Color;
-		button.parentAlpha = button.alpha;
-
-		return button;
+        	button.updateLabelPosition();
+    
+        	button.bounds.makeGraphic(Std.int(button.width - 50), Std.int(button.height - 50), FlxColor.TRANSPARENT);
+        	button.centerBounds();
+    
+        	button.immovable = true;
+        	button.solid = button.moves = false;
+		button.antialiasing = Options.antialiasing;
+        	button.tag = Frames.toUpperCase();
+    
+        	if (ColorS != -1) button.color = ColorS;
+    
+        	return button;
 	}
 
 	private static function getColorFromString(color:String):FlxColor
