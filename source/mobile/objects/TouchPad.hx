@@ -155,6 +155,8 @@ class TouchPad extends MobileInputManager
 
 		if(FileSystem.exists(buttonLabelGraphicPath))
 			frames = FlxGraphic.fromBitmapData(BitmapData.fromFile(buttonLabelGraphicPath));
+		else
+			frames = FlxGraphic.fromBitmapData(Assets.getBitmapData('assets/mobile/images/virtualpad/default.png'));
 			
 		var button = new TouchButton(x, y, IDs);
 		button.frames = FlxTileFrames.fromGraphic(frames, FlxPoint.get(Std.int(frames.width / 2), frames.height));
